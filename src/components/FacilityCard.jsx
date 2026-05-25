@@ -1,5 +1,7 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
+import { BsArrowRight } from 'react-icons/bs';
 
 const FacilityCard = ({ facilities }) => {
 
@@ -42,12 +44,17 @@ const FacilityCard = ({ facilities }) => {
                     <hr className="border-gray-200 mb-3" />
 
                     <div className="flex justify-between items-center mt-1">
-                        <div className="flex items-center text-gray-400 text-xs font-medium">
-                            <svg className="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                            </svg>
-                            {location}
+                        <div className="flex flex-col items-start text-gray-400 text-xs font-medium">
+                            <div className='flex items-center'>
+                                <svg className="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                                {location}
+                            </div>
+                            <Link href="/book-facility" className=" mt-2 flex items-center justify-center gap-1 text-[#118a42] font-bold hover:underline">
+                                Book Now <BsArrowRight></BsArrowRight>
+                            </Link>
                         </div>
                         <div className="text-gray-600 text-xs font-medium">
                             <span className="text-[#118a42] font-bold text-lg mr-0.5">${price_per_hour.toFixed(2)}</span>/hr

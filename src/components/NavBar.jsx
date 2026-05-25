@@ -1,7 +1,21 @@
+'use client';
 import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import React from 'react';
+import Button from './homeComponents/Button';
 
 const Navbar = () => {
+
+    const pathname = usePathname();
+    const navLinks = [
+        { name: 'Home', href: '/' },
+        { name: 'All Facilities', href: '/facilities' },
+        { name: 'My Bookings', href: '/my-bookings' },
+        { name: 'Add Facility', href: '/add-facility' },
+        { name: 'Manage My Facilities', href: '/manage-facilities' },
+    ];
+
     return (
         <div className='border-b border-gray-300 shadow-sm'>
             <div className="container mx-auto navbar px-4">
@@ -16,31 +30,47 @@ const Navbar = () => {
                             </svg>
                         </div>
                         <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-1 p-2 shadow bg-base-100 rounded-box w-52">
-                            <li><a>Home</a></li>
-                            <li><a>All Facilities</a></li>
-                            <li><a>My Bookings</a></li>
-                            <li><a>Add Facility</a></li>
-                            <li><a>Manage My Facilities</a></li>
+                            {navLinks.map((link) => {
+                                const isActive = pathname === link.href;
+                                return (
+                                    <li key={link.name}>
+                                        <Link
+                                            href={link.href}
+                                            className={isActive ? "text-green-800 font-bold bg-green-50" : "text-gray-600"}
+                                        >
+                                            {link.name}
+                                        </Link>
+                                    </li>
+                                );
+                            })}
                         </ul>
                     </div>
                     {/* Brand Logo */}
-                    <a className="btn btn-ghost text-xl text-green-800 font-extrabold">SportNest</a>
+                    <Link href="/" className="text-xl text-green-800 font-extrabold">SportNest</Link>
                 </div>
 
                 {/* Middle: Desktop Navigation Links */}
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1 gap-2 font-medium text-gray-500">
-                        <li><a className="text-green-800 font-semibold">Home</a></li>
-                        <li><a>All Facilities</a></li>
-                        <li><a>My Bookings</a></li>
-                        <li><a>Add Facility</a></li>
-                        <li><a>Manage My Facilities</a></li>
+                        {navLinks.map((link) => {
+                            const isActive = pathname === link.href;
+                            return (
+                                <li key={link.name}>
+                                    <Link
+                                        href={link.href}
+                                        className={isActive ? "text-green-800 font-bold bg-green-50" : "text-gray-600"}
+                                    >
+                                        {link.name}
+                                    </Link>
+                                </li>
+                            );
+                        })}
                     </ul>
                 </div>
 
                 {/* Right side: Avatar Dropdown */}
                 <div className="navbar-end">
-                    <div className="dropdown dropdown-end">
+                    {/* <div className="dropdown dropdown-end">
                         <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                             <div className="w-10 rounded-full">
                                 <Image
@@ -63,7 +93,9 @@ const Navbar = () => {
                             <li><a>Settings</a></li>
                             <li><a>Logout</a></li>
                         </ul>
-                    </div>
+                    </div> */}
+                    <Link href="/login"><Button>Login</Button></Link>
+
                 </div>
 
             </div>
