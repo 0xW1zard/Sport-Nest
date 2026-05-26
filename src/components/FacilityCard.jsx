@@ -14,10 +14,7 @@ const FacilityCard = ({ facilities }) => {
 
                 <div className="relative h-40 w-full">
                     <Image
-                        src={image}
-                        alt={name}
-                        width={200}
-                        height={200}
+                        src={image} alt={name} width={200} height={200} loading="eager"
                         className="w-full h-full object-cover"
                     />
                     <span className="absolute top-3 right-3 bg-[#c2f3d6] text-[#0a5228] text-xs font-bold px-2.5 py-1 rounded-full">

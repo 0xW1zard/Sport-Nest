@@ -5,6 +5,9 @@ import { usePathname, useRouter } from 'next/navigation';
 import React from 'react';
 import Button from './homeComponents/Button';
 import { authClient } from '@/lib/auth-client';
+import { HiOutlineBookmarkSquare, HiOutlineCog, HiOutlinePlus } from 'react-icons/hi2';
+import { HiOutlineLogout } from 'react-icons/hi';
+import { RiArrowDropDownLine } from 'react-icons/ri';
 
 const Navbar = () => {
     const { data: session } = authClient.useSession();
@@ -83,7 +86,7 @@ const Navbar = () => {
                 <div className="navbar-end">
                     {session?.user ? (
                         <div className="dropdown dropdown-end border border-dashed border-gray-400 rounded-full hover:bg-gray-200">
-                            <div tabIndex={0} role="button" className="btn btn-transparent py-0.5 px-1 rounded-full flex items-center gap-2 pr-4 ">
+                            <div tabIndex={0} role="button" className="btn btn-transparent py-0.5 px-1 rounded-full flex items-center gap-2 ">
                                 <div className="avatar">
                                     <div className="w-9 rounded-full">
                                         <Image
@@ -97,15 +100,17 @@ const Navbar = () => {
                                 <span className="text-sm font-semibold text-gray-700">
                                     {session?.user?.name?.split(' ')[0] || 'User'}
                                 </span>
+                                <RiArrowDropDownLine size={20} />
                             </div>
 
                             <ul
                                 tabIndex={-1}
-                                className="menu menu-sm dropdown-content bg-base-100 border border-gray-100 rounded-box z-1 mt-3 w-52 p-2 shadow-lg"
+                                className="menu menu-sm dropdown-content bg-base-100 border border-dashed border-gray-300 rounded-box z-1 mt-3 w-52 p-2 shadow-lg"
                             >
-                                <li><Link href="/profile">Profile</Link></li>
-                                <li><Link href="/settings" >Settings</Link></li>
-                                <li onClick={handleLogout} className="text-red-600"><a>Logout</a></li>
+                                <li className='mt-1 py-1 border border-dashed border-gray-300 rounded-md'><Link href="/my-bookings"><HiOutlineBookmarkSquare size={18} />My Bookings</Link></li>
+                                <li className='mt-1 py-1 border border-dashed border-gray-300 rounded-md'><Link href="/add-facility" ><HiOutlinePlus size={18} />Add Facility</Link></li>
+                                <li className='mt-1 py-1 border border-dashed border-gray-300 rounded-md'><Link href="/manage-facilities" ><HiOutlineCog size={18} />Manage My Facilities</Link></li>
+                                <li onClick={handleLogout} className="mt-1 text-red-600 border border-dashed border-red-300 rounded-md"><a><HiOutlineLogout size={18} />Logout</a></li>
                             </ul>
                         </div>
                     ) : (

@@ -4,7 +4,6 @@ import Footer from "@/components/Footer";
 import Hero from "@/components/homeComponents/Hero";
 import SeamlessBooking from "@/components/homeComponents/SeamlessBooking";
 import SportCategories from "@/components/homeComponents/SportCategories";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export default function Home() {
@@ -19,8 +18,6 @@ export default function Home() {
     };
     fetchFacilities();
   }, []);
-
-  console.log(facilities)
 
   const SixFacilities = facilities.slice(0, 6);
   return (

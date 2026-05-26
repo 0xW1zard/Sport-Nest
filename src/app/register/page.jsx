@@ -42,6 +42,11 @@ const Register = () => {
 
     }
 
+    const handleGoogleLogin = async () => {
+        const data = await authClient.signIn.social({
+            provider: "google",
+          });
+    }
 
 
     return (
@@ -139,7 +144,7 @@ const Register = () => {
                 </div>
 
                 <button
-                    type="submit"
+                    type="submit" onClick={handleGoogleLogin}
                     className="w-full py-3 px-6 border border-gray-300 text-gray-700 font-medium text-sm rounded-full flex items-center justify-center gap-2 hover:bg-gray-50 transition-colors duration-200"
                 >
                     <FcGoogle className="w-5 h-5" />
