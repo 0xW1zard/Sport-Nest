@@ -7,8 +7,19 @@ const FacilitiesMainBody = () => {
     const [facilities, setFacilities] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [activeFilter, setActiveFilter] = useState('All');
+    const [searchQuery, setSearchQuery] = useState('');
     
-    const filters = ['All', 'Football', 'Tennis', 'Padel', 'Basketball', 'Swimming'];
+    const filters = ['All', 'Basketball Court', 'Football Field', 'Tennis Court', 'Swimming Pool', 'Gymnasium', 'Dance Studio', 'Climbing Wall'];
+
+    const filteredFacilities = facilities.filter((facility) => {
+
+        const matchesCategory = activeFilter === 'All' || facility.facility_type === activeFilter;
+        const matchesSearch = facility.name.toLowerCase().includes(searchQuery.toLowerCase());
+        
+        return matchesCategory && matchesSearch;
+    });
+
+    console.log(searchQuery);
 
     useEffect(() => {
         const fetchFacilities = async () => {
@@ -25,8 +36,6 @@ const FacilitiesMainBody = () => {
         fetchFacilities();
     }, []);
 
-    console.log(facilities);
-
     return (
         <main className="grow pt-10 pb-20 bg-[#f8f9fc] min-h-screen">
             
@@ -34,7 +43,7 @@ const FacilitiesMainBody = () => {
                 
                 <div className="w-full max-w-3xl relative">
                     <MdSearch className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 w-6 h-6" />
-                    <input 
+                    <input onChange={(e) => setSearchQuery(e.target.value)}
                         type="text" 
                         placeholder="Search facilities by name..." 
                         className="w-full pl-14 pr-4 py-4 rounded-full border border-gray-300 bg-white focus:outline-none focus:border-green-800 focus:ring-1 focus:ring-green-800 transition-all text-gray-700 shadow-sm"
@@ -65,7 +74,7 @@ const FacilitiesMainBody = () => {
                     </div>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {facilities.map((facility) => (
+                        {filteredFacilities.map((facility) => (
                             <FacilityCard key={facility._id} facilities={facility} />
                         ))}
                     </div>

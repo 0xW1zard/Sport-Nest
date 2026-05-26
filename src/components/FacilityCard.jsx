@@ -10,7 +10,7 @@ const FacilityCard = ({ facilities }) => {
 
     return (
         <div className="w-full p-4">
-            <div className="w-full h-full bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden">
+            <div className="w-full h-full bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
 
                 <div className="relative h-40 w-full">
                     <Image
