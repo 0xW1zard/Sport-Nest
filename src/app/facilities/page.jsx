@@ -18,9 +18,7 @@ const FacilitiesMainBody = () => {
         
         return matchesCategory && matchesSearch;
     });
-
-    console.log(searchQuery);
-
+    
     useEffect(() => {
         const fetchFacilities = async () => {
             try {
@@ -37,9 +35,9 @@ const FacilitiesMainBody = () => {
     }, []);
 
     return (
-        <main className="grow pt-10 pb-20 bg-[#f8f9fc] min-h-screen">
+        <main className="grow pt-10 pb-20 min-h-screen">
             
-            <section className="px-4 flex flex-col gap-8 items-center w-full max-w-7xl mx-auto">
+            <section className="px-4 flex flex-col gap-8 items-center w-full container mx-auto">
                 
                 <div className="w-full max-w-3xl relative">
                     <MdSearch className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 w-6 h-6" />
@@ -67,7 +65,7 @@ const FacilitiesMainBody = () => {
                 </div>
             </section>
 
-            <section className="px-4 max-w-7xl mx-auto mt-10">
+            <section className="px-4 container mx-auto mt-10">
                 {isLoading ? (
                     <div className="flex justify-center items-center py-20">
                         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-800"></div>

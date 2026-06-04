@@ -5,7 +5,7 @@ import { BsArrowRight } from 'react-icons/bs';
 
 const FacilityCard = ({ facilities }) => {
 
-    const { name, facility_type, location, price_per_hour, capacity, available_slots, description, owner_email, booking_count, image } = facilities;
+    const { name, facility_type, location, price_per_hour, capacity, available_slots, description, owner_email, booking_count, image, _id } = facilities;
 
 
     return (
@@ -49,7 +49,7 @@ const FacilityCard = ({ facilities }) => {
                                 </svg>
                                 {location}
                             </div>
-                            <Link href="/book-facility" className=" mt-2 flex items-center justify-center gap-1 text-[#118a42] font-bold hover:underline">
+                            <Link href={`/facilities/${_id}`} className=" mt-2 flex items-center justify-center gap-1 text-[#118a42] font-bold hover:underline">
                                 Book Now <BsArrowRight></BsArrowRight>
                             </Link>
                         </div>
