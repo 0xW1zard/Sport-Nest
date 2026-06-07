@@ -6,7 +6,7 @@ import { BsArrowRight } from 'react-icons/bs';
 const FacilityCard = ({ facilities }) => {
 
     const { name, facility_type, location, price_per_hour, capacity, available_slots, description, owner_email, booking_count, image, _id } = facilities;
-
+    const price = Number(price_per_hour).toFixed(2);
 
     return (
         <div className="w-full p-4">
@@ -54,7 +54,7 @@ const FacilityCard = ({ facilities }) => {
                             </Link>
                         </div>
                         <div className="text-gray-600 text-xs font-medium">
-                            <span className="text-[#118a42] font-bold text-lg mr-0.5">${price_per_hour.toFixed(2)}</span>/hr
+                            <span className="text-[#118a42] font-bold text-lg mr-0.5">${price}</span>/hr
                         </div>
                     </div>
 

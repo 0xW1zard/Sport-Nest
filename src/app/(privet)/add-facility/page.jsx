@@ -1,5 +1,7 @@
 'use client';
+import { authClient } from '@/lib/auth-client';
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 
 const AddFacilityPage = () => {
     const sportOptions = [
@@ -14,21 +16,48 @@ const AddFacilityPage = () => {
     ];
 
     const [selectedSlots, setSelectedSlots] = useState([]);
-        const toggleSlot = (slot) => {
+    const toggleSlot = (slot) => {
         setSelectedSlots((prev) =>
             prev.includes(slot)
                 ? prev.filter((s) => s !== slot)
-                : [...prev, slot] 
+                : [...prev, slot]
         );
     };
 
-    const handleSubmit = (e) => {
+    const { data: session } = authClient.useSession();
+    const {user} = session || {};
+    console.log(user);
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         const facilityData = Object.fromEntries(formData.entries());
-        facilityData.availableTimeSlots = selectedSlots; 
+        facilityData.available_slots = selectedSlots;
+        facilityData.userId = user?.id 
+        facilityData.userName = user?.name
+        facilityData.owner_email = user?.email
+        facilityData.booking_count = Math.floor(Math.random() * 100) 
         console.log('Submitting Facility Data:', facilityData);
+
+
+        try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/allFacilities`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(facilityData)
+            })
+            const data = await response.json();
+            toast.success('Facility added successfully!');
+            console.log('Server Response:', data);
+        } catch (error) {
+            toast.error('Error submitting facility.');
+            console.error('Error submitting facility:', error);
+        }
     }
+
+
 
     return (
         <div className="container mx-auto px-4 pb-20">
@@ -38,25 +67,25 @@ const AddFacilityPage = () => {
             </div>
 
             <div className="max-w-3xl mx-auto bg-white rounded-md shadow-sm border border-gray-100 p-6 md:p-10 relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-1.5 bg-linear-to-r from-[#00652c] to-green-400"></div>
+                <div className="absolute top-0 left-0 w-full h-1.5 bg-linear-to-r from-green-700 to-green-400"></div>
 
                 <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                     <div className="col-span-1 md:col-span-2">
-                        <label className="block text-sm font-bold text-gray-700 mb-1" htmlFor="facilityName">Facility Name</label>
+                        <label className="block text-sm font-bold text-gray-700 mb-1" htmlFor="name">Facility Name</label>
                         <input
                             className="w-full bg-white border border-gray-300 rounded-xl px-4 py-3 text-gray-900 focus:outline-none focus:border-[#00652c] focus:ring-1 focus:ring-[#00652c] transition-all shadow-sm"
-                            name="facilityName"
+                            name="name" required
                             placeholder="e.g. Downtown Elite Tennis Courts"
                             type="text"
                         />
                     </div>
 
                     <div>
-                        <label className="block text-sm font-bold text-gray-700 mb-1" htmlFor="sportType">Sport Type</label>
+                        <label className="block text-sm font-bold text-gray-700 mb-1" htmlFor="facility_type">Sport Type</label>
                         <select
                             className="w-full bg-white border border-gray-300 rounded-xl px-4 py-3 text-gray-900 appearance-none focus:outline-none focus:border-[#00652c] focus:ring-1 focus:ring-[#00652c] transition-all shadow-sm cursor-pointer"
-                            name="sportType"
+                            name="facility_type" required
                             defaultValue=""
                         >
                             <option disabled value="">Select a sport...</option>
@@ -70,17 +99,17 @@ const AddFacilityPage = () => {
                         <label className="block text-sm font-bold text-gray-700 mb-1" htmlFor="location">Location</label>
                         <input
                             className="w-full bg-white border border-gray-300 rounded-xl px-4 py-3 text-gray-900 focus:outline-none focus:border-[#00652c] focus:ring-1 focus:ring-[#00652c] transition-all shadow-sm"
-                            name="location"
+                            name="location" required
                             placeholder="Address or Area"
                             type="text"
                         />
                     </div>
 
                     <div className="col-span-1 md:col-span-2">
-                        <label className="block text-sm font-bold text-gray-700 mb-1" htmlFor="imageUrl">Facility Image URL</label>
+                        <label className="block text-sm font-bold text-gray-700 mb-1" htmlFor="image">Facility Image URL</label>
                         <input
                             className="w-full bg-white border border-gray-300 rounded-xl px-4 py-3 text-gray-900 focus:outline-none focus:border-[#00652c] focus:ring-1 focus:ring-[#00652c] transition-all shadow-sm"
-                            name="imageUrl"
+                            name="image" required
                             placeholder="https://example.com/your-image.jpg"
                             type="url"
                         />
@@ -88,10 +117,10 @@ const AddFacilityPage = () => {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 col-span-1 md:col-span-2 bg-gray-50 p-6 rounded-xl border border-gray-100 mt-2">
                         <div>
-                            <label className="block text-sm font-bold text-gray-700 mb-1" htmlFor="price">Price per Hour ($)</label>
+                            <label className="block text-sm font-bold text-gray-700 mb-1" htmlFor="price_per_hour">Price per Hour ($)</label>
                             <input
                                 className="w-full bg-white border border-gray-300 rounded-xl px-4 py-3 text-gray-900 focus:outline-none focus:border-[#00652c] focus:ring-1 focus:ring-[#00652c] transition-all shadow-sm"
-                                name="price"
+                                name="price_per_hour" required
                                 placeholder="0.00"
                                 type="number"
                                 step="0.01"
@@ -102,24 +131,24 @@ const AddFacilityPage = () => {
                             <label className="block text-sm font-bold text-gray-700 mb-1" htmlFor="capacity">Max Capacity (People)</label>
                             <input
                                 className="w-full bg-white border border-gray-300 rounded-xl px-4 py-3 text-gray-900 focus:outline-none focus:border-[#00652c] focus:ring-1 focus:ring-[#00652c] transition-all shadow-sm"
-                                name="capacity"
+                                name="capacity" required
                                 placeholder="e.g. 22"
                                 type="number"
                             />
                         </div>
                         <div className='col-span-2'>
-                            <label className="block text-sm font-bold text-gray-700 mb-1" htmlFor="timeSlots">Available Time Slots</label>
+                            <label className="block text-sm font-bold text-gray-700 mb-1" htmlFor="available_slots">Available Time Slots</label>
                             <div className="flex flex-wrap gap-2">
                                 {timeSlotOptions.map((slot, index) => {
                                     const isSelected = selectedSlots.includes(slot);
                                     return (
                                         <button
                                             key={index}
-                                            type="button" 
+                                            type="button"
                                             onClick={() => toggleSlot(slot)}
                                             className={`px-4 py-2 rounded-xl border text-sm font-medium transition-all duration-200 ${isSelected
-                                                    ? 'bg-green-800 text-white border-green-500 shadow-sm scale-105'
-                                                    : 'bg-white text-gray-700 border-gray-300 hover:border-green-800 hover:text-green-800'
+                                                ? 'bg-green-800 text-white border-green-500 shadow-sm scale-105'
+                                                : 'bg-white text-gray-700 border-gray-300 hover:border-green-800 hover:text-green-800'
                                                 }`}
                                         >
                                             {slot}
@@ -135,7 +164,7 @@ const AddFacilityPage = () => {
                         <label className="block text-sm font-bold text-gray-700 mb-1" htmlFor="description">Description</label>
                         <textarea
                             className="w-full bg-white border border-gray-300 rounded-xl px-4 py-3 text-gray-900 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-all shadow-sm resize-y"
-                            name="description"
+                            name="description" required
                             placeholder="Describe the amenities, rules, and unique features of this facility..."
                             rows="4"
                         ></textarea>

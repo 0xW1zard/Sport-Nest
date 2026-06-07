@@ -13,13 +13,16 @@ const BookingForm = ({ facility }) => {
         price_per_hour,
         capacity,
         description,
-        image
+        image,
+        available_slots
     } = facility;
+    const price = Number(price_per_hour);
+
 
     const [duration, setDuration] = useState(1.5);
     const session  = authClient.useSession();
 
-    const estimatedPayment = (duration * price_per_hour).toFixed(2);
+    const estimatedPayment = (duration * price).toFixed(2);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -70,7 +73,7 @@ const BookingForm = ({ facility }) => {
             <div className="flex flex-col pb-4 border-b border-gray-100">
                 <h2 className="text-xl font-bold text-gray-900 line-clamp-1">{name}</h2>
                 <div className="flex items-baseline gap-2 mt-1">
-                    <span className="text-3xl font-extrabold text-[#00652c]">${price_per_hour}</span>
+                    <span className="text-3xl font-extrabold text-[#00652c]">${price}</span>
                     <span className="text-sm font-medium text-gray-500">/ hour</span>
                 </div>
             </div>
@@ -98,11 +101,12 @@ const BookingForm = ({ facility }) => {
                         className="select select-bordered w-full focus:outline-none focus:border-[#00652c] focus:ring-1 focus:ring-[#00652c]"
                     >
                         <option value="" disabled>Select a time...</option>
-                        <option value="17:00">17:00 (5:00 PM)</option>
-                        <option value="18:00">18:00 (6:00 PM)</option>
-                        <option value="19:00">19:00 (7:00 PM)</option>
-                        <option value="20:00">20:00 (8:00 PM)</option>
-                        <option value="22:00">22:00 (10:00 PM)</option>
+                        {
+                            available_slots.map((slot, index) => (
+                                <option key={index} value={slot}>{slot}</option>
+                            ))
+                        }
+                        
                     </select>
                 </div>
 

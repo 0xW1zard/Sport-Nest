@@ -12,7 +12,7 @@ export default function Home() {
 
   useEffect(() => {
     const fetchFacilities = async () => {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/allFacilitate`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/allFacilities`);
       const data = await response.json();
       setFacilities(data);
     };

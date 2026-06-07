@@ -13,7 +13,7 @@ import BookingForm from '@/components/BookingForm';
 const FacilityDetailsPage = async ({ params }) => {
     const { id } = await params;
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/allFacilitate/${id}`);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/allFacilities/${id}`);
     const facility = await response.json();
 
     const {

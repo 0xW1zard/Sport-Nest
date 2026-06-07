@@ -22,7 +22,7 @@ const FacilitiesMainBody = () => {
     useEffect(() => {
         const fetchFacilities = async () => {
             try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/allFacilitate`);
+                const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/allFacilities`);
                 const data = await response.json();
                 setFacilities(data);
             } catch (error) {
