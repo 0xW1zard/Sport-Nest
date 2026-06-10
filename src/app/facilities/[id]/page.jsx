@@ -41,7 +41,7 @@ const FacilityDetailsPage = async ({ params }) => {
                             className="object-cover"
                         />
                         <div className="absolute top-4 right-4 flex gap-2">
-                            <span className="bg-[#b2f746] text-[#496f00] text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">
+                            <span className="bg-yellow-300 text-green-600 text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">
                                 {facility_type}
                             </span>
                         </div>
@@ -57,7 +57,7 @@ const FacilityDetailsPage = async ({ params }) => {
                                 {location}
                             </div>
                             <span className="text-gray-300 mx-1">•</span>
-                            <div className="flex items-center text-[#00652c]">
+                            <div className="flex items-center text-green-600">
                                 <MdStar className="w-5 h-5 mr-1" />
                                 <span className="font-bold">4.9</span>
                                 <span className="text-gray-500 ml-1 font-normal">(128 reviews)</span>
@@ -66,23 +66,23 @@ const FacilityDetailsPage = async ({ params }) => {
                     </div>
 
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div className="bg-[#eef0ff] rounded-2xl p-4 flex flex-col gap-2 items-start">
-                            <div className="bg-white p-2 rounded-full text-[#00652c] shadow-sm"><MdGroups size={20} /></div>
+                        <div className="bg-white rounded-2xl p-4 flex flex-col gap-2 items-start">
+                            <div className="bg-white p-2 rounded-full text-green-600 shadow-sm"><MdGroups size={20} /></div>
                             <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Capacity</span>
                             <span className="text-base font-bold text-gray-900">{capacity || 22} Players</span>
                         </div>
-                        <div className="bg-[#eef0ff] rounded-2xl p-4 flex flex-col gap-2 items-start">
-                            <div className="bg-white p-2 rounded-full text-[#00652c] shadow-sm"><MdGrass size={20} /></div>
+                        <div className="bg-white rounded-2xl p-4 flex flex-col gap-2 items-start">
+                            <div className="bg-white p-2 rounded-full text-green-600 shadow-sm"><MdGrass size={20} /></div>
                             <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Surface</span>
                             <span className="text-base font-bold text-gray-900">Pro Turf 3G</span>
                         </div>
-                        <div className="bg-[#eef0ff] rounded-2xl p-4 flex flex-col gap-2 items-start">
-                            <div className="bg-white p-2 rounded-full text-[#00652c] shadow-sm"><MdLightbulb size={20} /></div>
+                        <div className="bg-white rounded-2xl p-4 flex flex-col gap-2 items-start">
+                            <div className="bg-white p-2 rounded-full text-green-600 shadow-sm"><MdLightbulb size={20} /></div>
                             <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Lighting</span>
                             <span className="text-base font-bold text-gray-900">LED 500 Lux</span>
                         </div>
-                        <div className="bg-[#eef0ff] rounded-2xl p-4 flex flex-col gap-2 items-start">
-                            <div className="bg-white p-2 rounded-full text-[#00652c] shadow-sm"><MdShower size={20} /></div>
+                        <div className="bg-white rounded-2xl p-4 flex flex-col gap-2 items-start">
+                            <div className="bg-white p-2 rounded-full text-green-600 shadow-sm"><MdShower size={20} /></div>
                             <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Amenities</span>
                             <span className="text-base font-bold text-gray-900">Lockers, Showers</span>
                         </div>
@@ -105,7 +105,7 @@ const FacilityDetailsPage = async ({ params }) => {
                                 className="object-cover opacity-60 grayscale"
                             />
                             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
-                                <MdLocationOn className="text-[#00652c] text-5xl drop-shadow-lg" />
+                                <MdLocationOn className="text-green-600 text-5xl drop-shadow-lg" />
                                 <div className="bg-white text-gray-900 text-xs px-4 py-1.5 rounded-full shadow-md mt-1 font-bold">
                                     {name}
                                 </div>
