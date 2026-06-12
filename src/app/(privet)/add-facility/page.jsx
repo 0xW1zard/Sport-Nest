@@ -1,9 +1,11 @@
 'use client';
 import { authClient } from '@/lib/auth-client';
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 
 const AddFacilityPage = () => {
+    const router = useRouter();
     const sportOptions = [
         'All', 'Basketball Court', 'Football Field', 'Tennis Court',
         'Swimming Pool', 'Gymnasium', 'Dance Studio', 'Climbing Wall'
@@ -25,7 +27,7 @@ const AddFacilityPage = () => {
     };
 
     const { data: session } = authClient.useSession();
-    const {user} = session || {};
+    const { user } = session || {};
     console.log(user);
 
     const handleSubmit = async (e) => {
@@ -33,10 +35,10 @@ const AddFacilityPage = () => {
         const formData = new FormData(e.target);
         const facilityData = Object.fromEntries(formData.entries());
         facilityData.available_slots = selectedSlots;
-        facilityData.userId = user?.id 
+        facilityData.userId = user?.id
         facilityData.userName = user?.name
         facilityData.owner_email = user?.email
-        facilityData.booking_count = Math.floor(Math.random() * 100) 
+        facilityData.booking_count = Math.floor(Math.random() * 100)
         console.log('Submitting Facility Data:', facilityData);
 
 
@@ -50,10 +52,9 @@ const AddFacilityPage = () => {
             })
             const data = await response.json();
             toast.success('Facility added successfully!');
-            console.log('Server Response:', data);
+            router.push('/manage-facilities');
         } catch (error) {
             toast.error('Error submitting facility.');
-            console.error('Error submitting facility:', error);
         }
     }
 
@@ -116,25 +117,27 @@ const AddFacilityPage = () => {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 col-span-1 md:col-span-2 bg-gray-50 p-6 rounded-xl border border-gray-100 mt-2">
-                        <div>
-                            <label className="block text-sm font-bold text-gray-700 mb-1" htmlFor="price_per_hour">Price per Hour ($)</label>
-                            <input
-                                className="w-full bg-white border border-gray-300 rounded-xl px-4 py-3 text-gray-900 focus:outline-none focus:border-[#00652c] focus:ring-1 focus:ring-[#00652c] transition-all shadow-sm"
-                                name="price_per_hour" required
-                                placeholder="0.00"
-                                type="number"
-                                step="0.01"
-                            />
-                        </div>
+                        <div className="col-span-1 md:col-span-2 w-full flex flex-col md:flex-row gap-6">
+                            <div className='w-full'>
+                                <label className="block text-sm font-bold text-gray-700 mb-1" htmlFor="price_per_hour">Price per Hour ($)</label>
+                                <input
+                                    className="w-full bg-white border border-gray-300 rounded-xl px-4 py-3 text-gray-900 focus:outline-none focus:border-[#00652c] focus:ring-1 focus:ring-[#00652c] transition-all shadow-sm"
+                                    name="price_per_hour" required
+                                    placeholder="0.00"
+                                    type="number"
+                                    step="0.01"
+                                />
+                            </div>
 
-                        <div>
-                            <label className="block text-sm font-bold text-gray-700 mb-1" htmlFor="capacity">Max Capacity (People)</label>
-                            <input
-                                className="w-full bg-white border border-gray-300 rounded-xl px-4 py-3 text-gray-900 focus:outline-none focus:border-[#00652c] focus:ring-1 focus:ring-[#00652c] transition-all shadow-sm"
-                                name="capacity" required
-                                placeholder="e.g. 22"
-                                type="number"
-                            />
+                            <div className='w-full'>
+                                <label className="block text-sm font-bold text-gray-700 mb-1" htmlFor="capacity">Max Capacity (People)</label>
+                                <input
+                                    className="w-full bg-white border border-gray-300 rounded-xl px-4 py-3 text-gray-900 focus:outline-none focus:border-[#00652c] focus:ring-1 focus:ring-[#00652c] transition-all shadow-sm"
+                                    name="capacity" required
+                                    placeholder="e.g. 22"
+                                    type="number"
+                                />
+                            </div>
                         </div>
                         <div className='col-span-2'>
                             <label className="block text-sm font-bold text-gray-700 mb-1" htmlFor="available_slots">Available Time Slots</label>

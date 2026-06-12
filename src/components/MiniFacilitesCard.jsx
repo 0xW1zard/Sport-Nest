@@ -1,16 +1,17 @@
 import React from 'react';
-import { MapPin, Pencil, Trash2 } from 'lucide-react';
+import { MapPin, Trash2 } from 'lucide-react';
 import Image from 'next/image';
+import EditFacilityModal from './EditFacilityModal';
 
 const MiniFacilityCard = ({ facility }) => {
 
-  const {name, location, price_per_hour,facility_type, _id ,image } = facility;
+  const { name, location, price_per_hour, facility_type, _id, image } = facility;
 
   return (
     <div className="max-w-sm rounded-3xl overflow-hidden shadow-lg bg-white border border-gray-100 font-sans">
       <div className="relative h-48 w-full bg-gray-200">
         <Image
-          src={image}
+          src={image} loading="eager"
           alt={name} width={200} height={100}
           className="w-full h-full object-cover"
         />
@@ -32,10 +33,10 @@ const MiniFacilityCard = ({ facility }) => {
         <div className="flex items-center justify-between">
           <span className="text-2xl font-extrabold text-green-700">${price_per_hour}<span className="text-sm font-medium text-gray-400">/hr</span></span>
 
-          <div className="flex gap-2">
-            <button className="p-3 rounded-full border border-gray-200 text-green-700 hover:bg-gray-50 transition-colors">
-              <Pencil size={18} />
-            </button>
+          <div className="flex items-center gap-2">
+
+            <EditFacilityModal facility={facility}></EditFacilityModal>
+
             <button className="p-3 rounded-full bg-red-50 text-red-500 hover:bg-red-100 transition-colors">
               <Trash2 size={18} />
             </button>
