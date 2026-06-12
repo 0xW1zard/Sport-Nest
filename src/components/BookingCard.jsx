@@ -49,12 +49,12 @@ const BookingCard = ({booking}) => {
                     </div>
                 </div>
 
-                <div className='flex flex-row md:flex-col items-center justify-between md:items-end w-full md:w-auto pt-4 md:pt-0 border-t md:border-none border-gray-100 shrink-0'>
+                <div className='flex flex-row gap-4 items-center justify-between md:items-end w-full md:w-auto pt-4 md:pt-0 border-t md:border-none border-gray-100 shrink-0'>
                     <p className='text-xl md:text-2xl font-bold text-gray-900'>
                         ${estimatedPayment}
                     </p>
-                    <div className="mt-0 md:mt-2">
-                        <DeleteButton name={name} id={_id} />
+                    <div className="mt-0 md:mt-2 border border-red-600 rounded-full">
+                        <DeleteButton name={name} id={_id} url="my-bookings" />
                     </div>
                 </div>
 

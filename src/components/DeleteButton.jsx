@@ -3,13 +3,13 @@ import React from 'react';
 import { AlertDialog, Button } from "@heroui/react";
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
+import { Trash2 } from 'lucide-react';
 
-const DeleteButton = ({ name, id }) => {
+const DeleteButton = ({ name, id, url }) => {
     const router = useRouter();
 
     const handleDelete = async (id) => {
-        console.log(id)
-        const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/bookings/${id}`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/${url}/${id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
@@ -19,10 +19,10 @@ const DeleteButton = ({ name, id }) => {
 
         console.log(res)
         if (res.deletedCount > 0) {
-            toast.success('Booking Deleted')
+            url === "my-bookings" ? toast.success('booking deleted successfully') : toast.success('facility deleted successfully')
             router.refresh()
         } else {
-            toast.error('booking not deleted')
+            url === "my-bookings" ? toast.error('Failed to delete booking') : toast.error('Failed to delete facility')
         }
 
 
@@ -31,7 +31,9 @@ const DeleteButton = ({ name, id }) => {
     return (
         <div>
             <AlertDialog>
-                <Button variant="danger">Delete</Button>
+                <Button className="p-3 rounded-full bg-red-50 text-red-500 hover:bg-red-100 transition-colors">
+                    <Trash2 size={18} />
+                </Button>
                 <AlertDialog.Backdrop>
                     <AlertDialog.Container>
                         <AlertDialog.Dialog className="sm:max-w-100">

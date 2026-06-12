@@ -1,7 +1,8 @@
 import React from 'react';
-import { MapPin, Trash2 } from 'lucide-react';
+import { MapPin } from 'lucide-react';
 import Image from 'next/image';
 import EditFacilityModal from './EditFacilityModal';
+import DeleteButton from './DeleteButton';
 
 const MiniFacilityCard = ({ facility }) => {
 
@@ -34,12 +35,8 @@ const MiniFacilityCard = ({ facility }) => {
           <span className="text-2xl font-extrabold text-green-700">${price_per_hour}<span className="text-sm font-medium text-gray-400">/hr</span></span>
 
           <div className="flex items-center gap-2">
-
             <EditFacilityModal facility={facility}></EditFacilityModal>
-
-            <button className="p-3 rounded-full bg-red-50 text-red-500 hover:bg-red-100 transition-colors">
-              <Trash2 size={18} />
-            </button>
+            <DeleteButton name={name} id={_id} url="manage-facilities"></DeleteButton>
           </div>
         </div>
       </div>

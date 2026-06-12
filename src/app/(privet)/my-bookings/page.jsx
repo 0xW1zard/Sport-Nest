@@ -1,6 +1,5 @@
 import BookingCard from '@/components/BookingCard';
 import { auth } from '@/lib/auth';
-import { p } from 'framer-motion/client';
 import { headers } from 'next/headers';
 import React from 'react';
 
