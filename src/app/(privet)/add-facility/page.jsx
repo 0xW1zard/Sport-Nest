@@ -29,7 +29,6 @@ const AddFacilityPage = () => {
 
     const { data: session } = authClient.useSession();
     const { user } = session || {};
-    console.log(user);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -40,14 +39,14 @@ const AddFacilityPage = () => {
         facilityData.userName = user?.name
         facilityData.owner_email = user?.email
         facilityData.booking_count = Math.floor(Math.random() * 100)
-        console.log('Submitting Facility Data:', facilityData);
 
-
+        const { data: tokenData } = await authClient.token();
         try {
             const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/allFacilities`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'authorization': `Bearer ${tokenData?.token}`
                 },
                 body: JSON.stringify(facilityData)
             })

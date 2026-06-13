@@ -15,7 +15,6 @@ const Login = () => {
         e.preventDefault();
         const formData = new FormData(e.target);
         const userData = Object.fromEntries(formData.entries());
-        console.log('Logging in user:', userData);
         const { email, password } = userData;
 
         const { data, error } = await authClient.signIn.email({
@@ -23,7 +22,6 @@ const Login = () => {
             password: password, // required
             callbackURL: "/",
         });
-        console.log("Sign-in response:", { data, error });
 
         if (error) {
             toast.error('Login failed');

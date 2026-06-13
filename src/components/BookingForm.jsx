@@ -1,6 +1,5 @@
 'use client';
 import { authClient } from '@/lib/auth-client';
-import { u } from 'framer-motion/client';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -19,7 +18,6 @@ const BookingForm = ({ facility }) => {
         available_slots
     } = facility;
     const price = Number(price_per_hour);
-
 
     const [duration, setDuration] = useState(1.5);
     const session  = authClient.useSession();
@@ -53,12 +51,14 @@ const BookingForm = ({ facility }) => {
             image
         };
 
-        console.log("Booking Details:", bookingDetails);
+
+        const {data: tokenData} =await authClient.token();
 
         const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/bookings`, {
             method: 'POST',
             headers:{
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                'authorization': `Bearer ${tokenData?.token}`
             },
             body: JSON.stringify(bookingDetails)
         })

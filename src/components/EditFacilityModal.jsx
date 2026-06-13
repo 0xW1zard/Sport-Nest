@@ -5,6 +5,7 @@ import { Modal, Button } from "@heroui/react";
 import { Pencil } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
+import { authClient } from '@/lib/auth-client';
 
 export default function EditFacilityModal({ facility }) {
     const router = useRouter();
@@ -34,17 +35,18 @@ export default function EditFacilityModal({ facility }) {
         const formData = new FormData(e.target);
         const data = Object.fromEntries(formData.entries());
         data.available_slots = selectedSlots;
-        console.log("Updating facility:", data);
+
+        const { data: tokenData } = await authClient.token();
 
         const result = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/manage-facilities/${facility._id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
+                'authorization': `Bearer ${tokenData?.token}`
             },
             body: JSON.stringify(data),
         })
         const res = await result.json();
-        console.log("Update response:", res);
         if (res.modifiedCount > 0) {
             toast.success('Facility updated successfully!');
             router.refresh();

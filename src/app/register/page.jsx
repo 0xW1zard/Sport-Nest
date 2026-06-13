@@ -22,7 +22,6 @@ const Register = () => {
         e.preventDefault();
         const formData = new FormData(e.target);
         const userData = Object.fromEntries(formData.entries());
-        console.log('Registering user:', userData);
         const { fullName, email, password, photoUrl } = userData;
 
         const { data, error } = await authClient.signUp.email({
@@ -32,7 +31,6 @@ const Register = () => {
             image: photoUrl || undefined, // optional
             callbackURL: "/",
         });
-        console.log("Sign-up response:", { data, error });
 
         if (error) {
             if (error.status === 422) {

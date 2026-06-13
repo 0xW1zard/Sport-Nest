@@ -25,7 +25,7 @@ const SeamlessBooking = () => {
   ];
 
   return (
-    <section className="py-16 px-4 bg-slate-50 w-full">
+    <section className="py-16 px-4 w-full">
       <div className="max-w-6xl mx-auto">
         
         <div className="text-center max-w-2xl mx-auto mb-12">

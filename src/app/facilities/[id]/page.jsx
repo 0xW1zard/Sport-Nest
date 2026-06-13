@@ -9,11 +9,21 @@ import {
     MdShower,
 } from 'react-icons/md';
 import BookingForm from '@/components/BookingForm';
+import { auth } from '@/lib/auth';
+import { headers } from 'next/headers';
 
 const FacilityDetailsPage = async ({ params }) => {
     const { id } = await params;
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/allFacilities/${id}`);
+    const {token} = await auth.api.getToken({
+        headers: await headers()
+    });
+
+    const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/allFacilities/${id}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
     const facility = await response.json();
 
     const {

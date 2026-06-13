@@ -4,20 +4,22 @@ import { AlertDialog, Button } from "@heroui/react";
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import { Trash2 } from 'lucide-react';
+import { authClient } from '@/lib/auth-client';
 
 const DeleteButton = ({ name, id, url }) => {
     const router = useRouter();
 
     const handleDelete = async (id) => {
+        const { data: tokenData } = await authClient.token();
         const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/${url}/${id}`, {
             method: 'DELETE',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'authorization': `Bearer ${tokenData?.token}`,
             }
         });
         const res = await response.json()
 
-        console.log(res)
         if (res.deletedCount > 0) {
             url === "my-bookings" ? toast.success('booking deleted successfully') : toast.success('facility deleted successfully')
             router.refresh()

@@ -17,11 +17,11 @@ const Navbar = () => {
     const handleLogout = async () => {
         await authClient.signOut({
             fetchOptions: {
-              onSuccess: () => {
-                router.push("/"); 
-              },
+                onSuccess: () => {
+                    router.push("/");
+                },
             },
-          });
+        });
     }
 
     const navLinks = [
@@ -59,7 +59,10 @@ const Navbar = () => {
                             })}
                         </ul>
                     </div>
-                    <Link href="/" className="text-xl text-green-800 font-extrabold">SportNest</Link>
+                    <div className='flex gap-2 items-center'>
+                        <Image src="/logo.png" alt="SportNest Logo" width={40} height={40} className="ml-2" />
+                        <Link href="/" className="text-xl text-green-800 font-extrabold">SportNest</Link>
+                    </div>
                 </div>
 
                 <div className="navbar-center hidden lg:flex">
