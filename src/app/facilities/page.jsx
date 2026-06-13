@@ -1,5 +1,6 @@
 'use client';
 import FacilityCard from '@/components/FacilityCard';
+import Footer from '@/components/Footer';
 import React, { useState, useEffect } from 'react';
 import { MdSearch } from 'react-icons/md';
 
@@ -35,7 +36,7 @@ const FacilitiesMainBody = () => {
     }, []);
 
     return (
-        <main className="grow pt-10 pb-20 min-h-screen">
+        <main className="grow pt-10 min-h-screen">
             
             <section className="px-4 flex flex-col gap-8 items-center w-full container mx-auto">
                 
@@ -78,7 +79,7 @@ const FacilitiesMainBody = () => {
                     </div>
                 )}
             </section>
-
+                <Footer></Footer>
         </main>
     );
 };

@@ -1,3 +1,4 @@
+import Footer from '@/components/Footer';
 import MiniFacilityCard from '@/components/MiniFacilitesCard';
 import { auth } from '@/lib/auth';
 import { headers } from 'next/headers';
@@ -16,26 +17,30 @@ const manageFacilitiesPage = async () => {
     const myFacilities = await res.json();
 
     return (
-        <div className='container mx-auto px-4 pb-20'>
-            <div className='flex items-center justify-between'>
-                <div className="mt-12 mb-10">
-                    <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3 tracking-tight">Manage Facilities</h1>
-                    <p className="text-md text-gray-500">Update or remove existing facilities from your portfolio.</p>
+        <>
+            <div className='container mx-auto px-4 pb-20 min-h-screen'>
+                <div className='flex items-center justify-between'>
+                    <div className="mt-12 mb-10">
+                        <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3 tracking-tight">Manage Facilities</h1>
+                        <p className="text-md text-gray-500">Update or remove existing facilities from your portfolio.</p>
+                    </div>
+                    <div className='hidden md:flex'>
+                        <Link href="/add-facility" className="btn text-white bg-green-600 hover:bg-green-800">
+                            <TiPlus />Add Facility
+                        </Link>
+                    </div>
                 </div>
-                <div className='hidden md:flex'>
-                    <Link href="/add-facility" className="btn text-white bg-green-600 hover:bg-green-800">
-                        <TiPlus />Add Facility
-                    </Link>
+
+                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8'>
+                    {myFacilities.map((facility) => (
+                        <MiniFacilityCard key={facility._id} facility={facility} />
+                    ))}
                 </div>
-            </div>
 
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8'>
-                {myFacilities.map((facility) => (
-                    <MiniFacilityCard key={facility._id} facility={facility} />
-                ))}
             </div>
-
-        </div>
+            
+            <Footer></Footer>
+        </>
     );
 };
 
