@@ -6,8 +6,10 @@ import { FcGoogle } from 'react-icons/fc';
 import { authClient } from '@/lib/auth-client';
 import toast from 'react-hot-toast';
 import Footer from '@/components/Footer';
+import { useRouter } from 'next/navigation';
 
 const Login = () => {
+    const router = useRouter();
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -27,6 +29,7 @@ const Login = () => {
             toast.error('Login failed');
         } else {
             toast.success('Login Successful! welcome');
+            router.push('/');
         }
 
     }

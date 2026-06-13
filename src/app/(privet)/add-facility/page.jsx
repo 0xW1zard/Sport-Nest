@@ -53,7 +53,7 @@ const AddFacilityPage = () => {
             })
             const data = await response.json();
             toast.success('Facility added successfully!');
-            router.push('/manage-facilities');
+            router.push('/facilities');
         } catch (error) {
             toast.error('Error submitting facility.');
         }

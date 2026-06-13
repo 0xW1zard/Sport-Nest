@@ -12,8 +12,10 @@ import { FcGoogle } from 'react-icons/fc';
 import { authClient } from '@/lib/auth-client';
 import toast from 'react-hot-toast';
 import Footer from '@/components/Footer';
+import { useRouter } from 'next/navigation';
 
 const Register = () => {
+    const router = useRouter();
 
 
     const handleRegister = async (e) => {
@@ -34,11 +36,13 @@ const Register = () => {
 
         if (error) {
             if (error.status === 422) {
-                return toast.error('User Already Exists')
+                toast.error('User Already Exists')
+                return router.push('/login');
             }
             toast.error('SignUp failed');
         } else {
             toast.success('SignUp Successful! welcome');
+            router.push('/');
         }
 
     }
@@ -106,7 +110,8 @@ const Register = () => {
                                     type="password"
                                     name="password"
                                     placeholder="Create a strong password"
-                                    required
+                                    required pattern="^(?=.*[a-z])(?=.*[A-Z]).{6,}$"
+                                    title="Password must be at least 6 characters, with one uppercase and one lowercase letter."
                                     className="w-full pl-11 pr-4 py-3 bg-white text-gray-900 border border-gray-200 rounded-xl focus:outline-none focus:border-[#00652c] focus:ring-1 focus:ring-[#00652c] transition-all placeholder:text-gray-400"
                                 />
                             </div>

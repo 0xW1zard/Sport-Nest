@@ -31,14 +31,24 @@ const manageFacilitiesPage = async () => {
                     </div>
                 </div>
 
-                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8'>
-                    {myFacilities.map((facility) => (
-                        <MiniFacilityCard key={facility._id} facility={facility} />
-                    ))}
-                </div>
+                {myFacilities.length === 0 ? (
+                    <div className='flex flex-col items-center justify-center mt-20'>
+                        <h2 className='text-xl font-semibold text-gray-700 mb-4'>You have no facilities listed.</h2>
+                        <p className='text-gray-500 mb-6'>Start by adding a new facility to your portfolio.</p>
+                        <Link href="/add-facility" className="btn text-white bg-green-600 hover:bg-green-800">
+                            <TiPlus />Add Facility
+                        </Link>
+                    </div>
+                ) : (
+                    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10'>
+                        {myFacilities.map((facility) => (
+                            <MiniFacilityCard key={facility._id} facility={facility} />
+                        ))}
+                    </div>
+                )}
 
             </div>
-            
+
             <Footer></Footer>
         </>
     );

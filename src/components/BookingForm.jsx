@@ -1,10 +1,12 @@
 'use client';
 import { authClient } from '@/lib/auth-client';
 import { u } from 'framer-motion/client';
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 
 const BookingForm = ({ facility }) => {
+    const router = useRouter();
 
     const {
         name,
@@ -61,8 +63,8 @@ const BookingForm = ({ facility }) => {
             body: JSON.stringify(bookingDetails)
         })
         const result = await res.json();
-        console.log("Booking Response:", result);
         toast.success("Booking successful!");
+        router.push('/my-bookings');
     }
 
 

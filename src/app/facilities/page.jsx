@@ -69,7 +69,7 @@ const FacilitiesMainBody = () => {
             <section className="px-4 container mx-auto mt-10">
                 {isLoading ? (
                     <div className="flex justify-center items-center py-20">
-                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-800"></div>
+                        <span className="loading loading-dots loading-xl"></span>
                     </div>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
