@@ -8,6 +8,7 @@ import { authClient } from '@/lib/auth-client';
 import { HiOutlineBookmarkSquare, HiOutlineCog, HiOutlinePlus } from 'react-icons/hi2';
 import { HiOutlineLogout } from 'react-icons/hi';
 import { RiArrowDropDownLine } from 'react-icons/ri';
+import toast from 'react-hot-toast';
 
 const Navbar = () => {
     const { data: session } = authClient.useSession();
@@ -18,6 +19,7 @@ const Navbar = () => {
         await authClient.signOut({
             fetchOptions: {
                 onSuccess: () => {
+                    toast.success('Logged out successfully');
                     router.push("/");
                 },
             },
