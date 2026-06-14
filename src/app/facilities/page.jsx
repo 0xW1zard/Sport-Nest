@@ -36,7 +36,7 @@ const FacilitiesMainBody = () => {
     }, []);
 
     return (
-        <main className="grow pt-10 min-h-screen">
+        <main className="grow pt-10">
             
             <section className="px-4 flex flex-col gap-8 items-center w-full container mx-auto">
                 
@@ -66,7 +66,7 @@ const FacilitiesMainBody = () => {
                 </div>
             </section>
 
-            <section className="px-4 container mx-auto mt-10">
+            <section className="px-4 min-h-110 container mx-auto mt-10">
                 {isLoading ? (
                     <div className="flex justify-center items-center py-20">
                         <span className="loading loading-dots loading-xl"></span>
